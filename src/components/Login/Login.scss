@@ -1,0 +1,36 @@
+.login-wrapper {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgb(2, 0, 36);
+  background: linear-gradient(
+    335deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(9, 9, 121, 1) 38%,
+    rgba(0, 212, 255, 1) 100%
+  );
+
+  .login-form {
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
+    min-width: 400px;
+
+    label {
+      color: white;
+    }
+    & > * {
+      margin-top: 20px;
+    }
+
+    button {
+      align-self: center;
+    }
+  }
+
+  .error-notification {
+    position: fixed;
+    bottom: 50px;
+  }
+}

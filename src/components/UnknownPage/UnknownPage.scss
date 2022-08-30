@@ -1,0 +1,35 @@
+.container {
+  padding-top: 80px;
+  padding-bottom: 80px;
+
+  .container-inner {
+    position: relative;
+
+    .container-image {
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+      z-index: 0;
+      opacity: 0.75;
+    }
+    .container-content {
+      padding-top: 220px;
+      position: relative;
+      z-index: 1;
+
+      .container-title {
+        text-align: center;
+        font-weight: 900;
+        font-size: 38px;
+      }
+
+      .container-description {
+        max-width: 540px;
+        margin: auto;
+        margin-top: 24px;
+        margin-bottom: 24px * 1.5;
+      }
+    }
+  }
+}

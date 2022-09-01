@@ -5,6 +5,7 @@ import { Pagination } from "@mantine/core";
 import { UserPostsInterface } from "../../context/UserInterfaces";
 
 import "./Dashboard.scss";
+import { Link } from "react-router-dom";
 
 const Dashboard = () => {
   const userPosts = JSON.parse(localStorage.getItem("posts") || "{}");
@@ -19,15 +20,16 @@ const Dashboard = () => {
     pagesVisited,
     pagesVisited + postsPerPage
   );
-
   const rows: React.ReactElement[] = visiblePosts.map(
-    (row: UserPostsInterface) => (
-      <tr key={row.id + row.title}>
-        <td>{row.title}</td>
-        <td>{row.body}</td>
+    (post: UserPostsInterface) => (
+      <tr key={post.id + post.title}>
+        <td>{post.title}</td>
+        <td>{post.body}</td>
 
         <td>
-          <Button>View</Button>
+          <Link to={`/post/${post.id}`}>
+            <Button>View</Button>
+          </Link>
         </td>
       </tr>
     )

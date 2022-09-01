@@ -1,0 +1,29 @@
+.edit-form-wrapper {
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .title {
+    margin-bottom: 20px;
+  }
+
+  .edit-form {
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
+    min-width: 400px;
+    div {
+      margin-bottom: 20px;
+    }
+    textarea {
+      height: 200px;
+    }
+  }
+
+  .error-notification {
+    position: absolute;
+    bottom: 50px;
+  }
+}

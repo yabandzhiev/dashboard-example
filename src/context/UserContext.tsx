@@ -1,4 +1,5 @@
 import { createContext, FC, useState } from "react";
+import { loginService } from "../services/login";
 
 import {
   UserPostsInterface,
@@ -21,22 +22,16 @@ export const UserProvider: FC<ProviderProps> = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [userPosts, setUserPosts] =
     useState<UserPostsInterface[]>(initialPosts);
-  const [email, setEmail] = useState<string>("");
+  const [error, setError] = useState<string>("");
+  const [showSuccess, setShowSuccess] = useState<string>("");
 
   const login = async (userEmail: string, password: string) => {
-    const request = await fetch(
-      `https://jsonplaceholder.typicode.com/posts?userId=${password}`
-    );
-
-    const userPostsJson: UserPostsInterface[] = await request.json();
-
-    if (userPostsJson.length < 1) {
-      return false;
-    } else if (userEmail.length < 3) {
-      return false;
-    } else {
-      updateStates(true, userPostsJson, userEmail);
+    const loginResult = await loginService(userEmail, password);
+    if (Array.isArray(loginResult)) {
+      updateStates(true, loginResult, userEmail);
       return true;
+    } else {
+      return false;
     }
   };
 
@@ -55,12 +50,20 @@ export const UserProvider: FC<ProviderProps> = ({ children }) => {
       : (localStorage.removeItem("email"), localStorage.removeItem("posts"));
     setIsLoggedIn(isLogin);
     setUserPosts(posts);
-    setEmail(updateEmail);
   };
 
   return (
     <UserContext.Provider
-      value={{ isLoggedIn, login, logout, userPosts, email }}
+      value={{
+        isLoggedIn,
+        login,
+        logout,
+        userPosts,
+        error,
+        setError,
+        showSuccess,
+        setShowSuccess,
+      }}
     >
       {children}
     </UserContext.Provider>

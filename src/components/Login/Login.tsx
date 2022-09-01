@@ -10,9 +10,8 @@ import "./Login.scss";
 const Login = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [error, setError] = useState<boolean>(false);
 
-  const { login } = useContext(UserContext);
+  const { login, error, setError } = useContext(UserContext);
   const navigate = useNavigate();
   const shouldFetch = useRef(false);
 
@@ -27,7 +26,9 @@ const Login = () => {
     e.preventDefault();
     shouldFetch.current = true;
     const isUserLoggedIn = await login(email, password);
-    isUserLoggedIn ? navigate("/") : setError(true);
+    isUserLoggedIn
+      ? (setError(""), navigate("/"))
+      : setError("Invalid Credentials!");
   };
 
   return (
@@ -50,8 +51,8 @@ const Login = () => {
           className="error-notification"
           icon={<IconX size={18} />}
           color="red"
-          title="Invalid Credentials!"
-          onClose={() => setError(false)}
+          title={error}
+          onClose={() => setError("")}
         >
           Email or Password are incorrect, please try again!
         </Notification>

@@ -11,7 +11,10 @@ export interface UserContextInterface {
   login: (email: string, password: string) => Promise<boolean>;
   logout: () => void;
   isLoggedIn: boolean;
-  email: string;
+  error: string;
+  setError: React.Dispatch<React.SetStateAction<string>>;
+  showSuccess: string;
+  setShowSuccess: React.Dispatch<React.SetStateAction<string>>;
   userPosts: UserPostsInterface[];
 }
 

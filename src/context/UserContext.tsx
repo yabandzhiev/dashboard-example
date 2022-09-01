@@ -1,20 +1,13 @@
 import { createContext, FC, useState } from "react";
-import { loginService } from "../services/login";
 
 import {
   UserPostsInterface,
   UserContextInterface,
   ProviderProps,
-} from "./UserInterfaces";
-
-const initialPosts = [
-  {
-    userId: "",
-    id: "",
-    title: "",
-    body: "",
-  },
-];
+  initialPosts,
+} from "./UserInitialStatesAndInterfaces";
+import { EMAIL, POSTS } from "../common/constants";
+import { loginService } from "../services/login";
 
 export const UserContext = createContext({} as UserContextInterface);
 
@@ -45,9 +38,9 @@ export const UserProvider: FC<ProviderProps> = ({ children }) => {
     updateEmail: string
   ) => {
     isLogin
-      ? (localStorage.setItem("email", updateEmail),
-        localStorage.setItem("posts", JSON.stringify(posts)))
-      : (localStorage.removeItem("email"), localStorage.removeItem("posts"));
+      ? (localStorage.setItem(EMAIL, updateEmail),
+        localStorage.setItem(POSTS, JSON.stringify(posts)))
+      : (localStorage.removeItem(EMAIL), localStorage.removeItem(POSTS));
     setIsLoggedIn(isLogin);
     setUserPosts(posts);
   };

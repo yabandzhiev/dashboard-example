@@ -21,3 +21,12 @@ export interface UserContextInterface {
 export interface ProviderProps {
   children: ReactNode;
 }
+
+export const initialPosts = [
+  {
+    userId: "",
+    id: "",
+    title: "",
+    body: "",
+  },
+];

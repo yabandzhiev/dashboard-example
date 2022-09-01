@@ -4,4 +4,13 @@
   border-bottom: 1px solid #e9ecef;
   padding-bottom: 10px;
   margin-bottom: 20px;
+
+  .home-icon {
+    margin-left: 20px;
+    color: black;
+
+    &:active {
+      color: lightblue;
+    }
+  }
 }

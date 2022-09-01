@@ -13,6 +13,7 @@ import { IconCheck } from "@tabler/icons";
 
 import { UserContext } from "../../context/UserContext";
 import { getPostAndComments } from "../../services/post";
+import { EDIT_POST } from "../../common/constants";
 
 import "./Post.scss";
 
@@ -35,15 +36,15 @@ const Post = () => {
 
   useEffect(() => {
     if (shouldFetch.current) {
-      const fetchPost = async (id: string) => {
-        const postResult = await getPostAndComments(id);
-        postResult ? setPost(postResult) : navigate("/error");
-      };
-
       fetchPost(id);
       shouldFetch.current = false;
     }
   }, []);
+
+  const fetchPost = async (id: string) => {
+    const postResult = await getPostAndComments(id);
+    postResult ? setPost(postResult) : navigate("/error");
+  };
 
   const onEditBtnClick = (id: string) => {
     navigate(`/post/${id}/edit`, {
@@ -79,7 +80,7 @@ const Post = () => {
           mt="md"
           radius="md"
         >
-          Edit Post
+          {EDIT_POST}
         </Button>
       </Card>
       {post.comments.map((comment) => (

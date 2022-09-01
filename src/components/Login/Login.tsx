@@ -1,9 +1,14 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import { UserContext } from "../../context/UserContext";
 import { PasswordInput, TextInput, Button } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
 import { Notification } from "@mantine/core";
 import { IconX } from "@tabler/icons";
+
+import { UserContext } from "../../context/UserContext";
+import {
+  EMAIL_OR_PASSWORD_INCORRECT,
+  INVALID_CREDENTIALS,
+} from "../../common/constants";
 
 import "./Login.scss";
 
@@ -28,7 +33,7 @@ const Login = () => {
     const isUserLoggedIn = await login(email, password);
     isUserLoggedIn
       ? (setError(""), navigate("/"))
-      : setError("Invalid Credentials!");
+      : setError(INVALID_CREDENTIALS);
   };
 
   return (
@@ -54,7 +59,7 @@ const Login = () => {
           title={error}
           onClose={() => setError("")}
         >
-          Email or Password are incorrect, please try again!
+          {EMAIL_OR_PASSWORD_INCORRECT}
         </Notification>
       )}
     </div>

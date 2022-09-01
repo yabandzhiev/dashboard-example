@@ -1,18 +1,19 @@
 import { useContext, useState } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import { Avatar, UnstyledButton, Group, Text, Menu } from "@mantine/core";
-import { IconLogout, IconChevronDown } from "@tabler/icons";
+import { IconLogout, IconChevronDown, IconHome } from "@tabler/icons";
 
 import { UserContext } from "../../context/UserContext";
 import { useStyles } from "./HeaderStyles";
+import { EMAIL, LOGOUT } from "../../common/constants";
 
 import "./Header.scss";
 
 const Header = () => {
   const { classes, cx } = useStyles();
   const [userMenuOpened, setUserMenuOpened] = useState<boolean>(false);
-  const email = localStorage.getItem("email");
   const { logout } = useContext(UserContext);
+  const email = localStorage.getItem(EMAIL);
   const navigate = useNavigate();
 
   const onLogout = () => {
@@ -23,7 +24,11 @@ const Header = () => {
   return (
     <>
       <div className="header">
-        <Group position="right">
+        <Group position="apart">
+          <Link to="/">
+            <IconHome className="home-icon" />
+          </Link>
+
           <Menu
             width={185}
             position="bottom-end"
@@ -51,7 +56,7 @@ const Header = () => {
                 onClick={onLogout}
                 icon={<IconLogout size={14} stroke={1.5} />}
               >
-                Logout
+                {LOGOUT}
               </Menu.Item>
             </Menu.Dropdown>
           </Menu>

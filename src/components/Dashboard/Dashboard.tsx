@@ -1,24 +1,24 @@
 import { useState } from "react";
 import { Table, Button } from "@mantine/core";
 import { Pagination } from "@mantine/core";
+import { Link } from "react-router-dom";
 
-import { UserPostsInterface } from "../../context/UserInterfaces";
+import { UserPostsInterface } from "../../context/UserInitialStatesAndInterfaces";
+import { POSTS_PER_PAGE, VIEW } from "../../common/constants";
 
 import "./Dashboard.scss";
-import { Link } from "react-router-dom";
 
 const Dashboard = () => {
   const userPosts = JSON.parse(localStorage.getItem("posts") || "{}");
   const [activePage, setPage] = useState<number>(1);
 
-  const postsPerPage = 4;
-  const pagesVisited = (activePage - 1) * postsPerPage;
+  const pagesVisited = (activePage - 1) * POSTS_PER_PAGE;
 
-  const pagesNeeded = Math.ceil(userPosts.length / postsPerPage);
+  const pagesNeeded = Math.ceil(userPosts.length / POSTS_PER_PAGE);
 
   const visiblePosts = userPosts.slice(
     pagesVisited,
-    pagesVisited + postsPerPage
+    pagesVisited + POSTS_PER_PAGE
   );
   const rows: React.ReactElement[] = visiblePosts.map(
     (post: UserPostsInterface) => (
@@ -28,7 +28,7 @@ const Dashboard = () => {
 
         <td>
           <Link to={`/post/${post.id}`}>
-            <Button>View</Button>
+            <Button>{VIEW}</Button>
           </Link>
         </td>
       </tr>

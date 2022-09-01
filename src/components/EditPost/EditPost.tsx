@@ -12,6 +12,15 @@ import * as yup from "yup";
 
 import { UserContext } from "../../context/UserContext";
 import { editPost } from "../../services/post";
+import {
+  BAD_REQUEST,
+  INPUT_LENGTH_TOO_SHORT,
+  SUCCESSFULLY_EDITED,
+  TITLE_MUST_BE_MORE_THAN,
+  BODY_MUST_BE_MORE_THAN,
+  EDIT_POST,
+  EDIT,
+} from "../../common/constants";
 
 import "./EditPost.scss";
 
@@ -38,33 +47,32 @@ const EditPost = () => {
     e.preventDefault();
     const titleValidation = await titleSchema.isValid(title);
     const bodyValidation = await bodySchema.isValid(body);
+
     if (titleValidation && bodyValidation) {
       const editRequestStatus = await editPost(state.id, title, body);
 
       if (editRequestStatus.status === 200) {
         setError("");
-        setShowSuccess("Successfully edited");
+        setShowSuccess(SUCCESSFULLY_EDITED);
         navigate(`/post/${state.id}`);
       } else {
-        setError("Bad Request");
+        setError(BAD_REQUEST);
       }
     } else {
-      setError("Input length too short!");
+      setError(INPUT_LENGTH_TOO_SHORT);
     }
   };
   return (
     <div className="edit-form-wrapper">
       <Title className="title" order={2}>
-        Edit Post
+        {EDIT_POST}
       </Title>
       <form className="edit-form" onSubmit={(e) => onFormSubmit(e)}>
         <TextInput
           withAsterisk
           label="Title"
           value={title}
-          error={
-            title.length < 5 ? "Title must be more than 5 characters!" : ""
-          }
+          error={title.length < 5 ? TITLE_MUST_BE_MORE_THAN : ""}
           onChange={(event) => setTitle(event.currentTarget.value)}
         />
 
@@ -72,12 +80,10 @@ const EditPost = () => {
           withAsterisk
           label="Body"
           value={body}
-          error={
-            body.length < 20 ? "Body must be more than 20 characters!" : ""
-          }
+          error={body.length < 20 ? BODY_MUST_BE_MORE_THAN : ""}
           onChange={(event) => setBody(event.currentTarget.value)}
         />
-        <Button type="submit">Edit</Button>
+        <Button type="submit">{EDIT}</Button>
       </form>
       {error && (
         <Notification

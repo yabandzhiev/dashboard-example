@@ -1,4 +1,4 @@
-import { UserPostsInterface } from "../context/UserInterfaces";
+import { UserPostsInterface } from "../context/UserInitialStatesAndInterfaces";
 
 export const loginService = async (email: string, password: string) => {
   const request = await fetch(

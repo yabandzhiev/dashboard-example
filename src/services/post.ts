@@ -1,4 +1,4 @@
-import { UserPostsInterface } from "../context/UserInterfaces";
+import { UserPostsInterface } from "../context/UserInitialStatesAndInterfaces";
 
 interface commentsInterface {
   postId: string;

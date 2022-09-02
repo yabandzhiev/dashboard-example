@@ -14,21 +14,15 @@ import { IconCheck } from "@tabler/icons";
 import { UserContext } from "../../context/UserContext";
 import { getPostAndComments } from "../../services/post";
 import { EDIT_POST } from "../../common/constants";
+import {
+  initialPost,
+  initialPostInterface,
+} from "../../context/UserInitialStatesAndInterfaces";
 
 import "./Post.scss";
 
-const initialPost = {
-  post: {
-    userId: "",
-    id: "",
-    title: "",
-    body: "",
-  },
-  comments: [{ id: "", name: "", email: "", body: "" }],
-};
-
 const Post = () => {
-  const [post, setPost] = useState(initialPost);
+  const [post, setPost] = useState<initialPostInterface>(initialPost);
   const { id } = useParams() as { id: string };
   const shouldFetch = useRef(true);
   const navigate = useNavigate();

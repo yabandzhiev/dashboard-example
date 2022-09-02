@@ -12,7 +12,7 @@ import "./Header.scss";
 const Header = () => {
   const { classes, cx } = useStyles();
   const [userMenuOpened, setUserMenuOpened] = useState<boolean>(false);
-  const { logout } = useContext(UserContext);
+  const { logout, setShowSuccess } = useContext(UserContext);
   const email = localStorage.getItem(EMAIL);
   const navigate = useNavigate();
 
@@ -25,7 +25,7 @@ const Header = () => {
     <>
       <div className="header">
         <Group position="apart">
-          <Link to="/">
+          <Link to="/" onClick={() => setShowSuccess("")}>
             <IconHome className="home-icon" />
           </Link>
 

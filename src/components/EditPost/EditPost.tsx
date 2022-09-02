@@ -12,6 +12,7 @@ import * as yup from "yup";
 
 import { UserContext } from "../../context/UserContext";
 import { editPost } from "../../services/post";
+import { locationInterface } from "../../context/UserInitialStatesAndInterfaces";
 import {
   BAD_REQUEST,
   INPUT_LENGTH_TOO_SHORT,
@@ -23,14 +24,6 @@ import {
 } from "../../common/constants";
 
 import "./EditPost.scss";
-
-interface locationInterface {
-  state: {
-    id: string;
-    title: string;
-    body: string;
-  };
-}
 
 const titleSchema = yup.string().required().min(5);
 const bodySchema = yup.string().required().min(20);

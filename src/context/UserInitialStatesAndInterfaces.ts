@@ -30,3 +30,31 @@ export const initialPosts = [
     body: "",
   },
 ];
+
+export const initialPost = {
+  post: {
+    userId: "",
+    id: "",
+    title: "",
+    body: "",
+  },
+  comments: [{ id: "", name: "", email: "", body: "" }],
+};
+
+export interface initialPostInterface {
+  post: {
+    userId: string;
+    id: string;
+    title: string;
+    body: string;
+  };
+  comments: { id: string; name: string; email: string; body: string }[];
+}
+
+export interface locationInterface {
+  state: {
+    id: string;
+    title: string;
+    body: string;
+  };
+}

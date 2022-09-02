@@ -3,6 +3,7 @@ import { PasswordInput, TextInput, Button } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
 import { Notification } from "@mantine/core";
 import { IconX } from "@tabler/icons";
+import * as yup from "yup";
 
 import { UserContext } from "../../context/UserContext";
 import {
@@ -11,6 +12,8 @@ import {
 } from "../../common/constants";
 
 import "./Login.scss";
+
+const emailSchema = yup.string().email().required();
 
 const Login = () => {
   const [email, setEmail] = useState<string>("");
@@ -29,11 +32,17 @@ const Login = () => {
 
   const onFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    shouldFetch.current = true;
-    const isUserLoggedIn = await login(email, password);
-    isUserLoggedIn
-      ? (setError(""), navigate("/"))
-      : setError(INVALID_CREDENTIALS);
+    const titleValidation = await emailSchema.isValid(email);
+
+    if (titleValidation) {
+      shouldFetch.current = true;
+      const isUserLoggedIn = await login(email, password);
+      isUserLoggedIn
+        ? (setError(""), navigate("/"))
+        : setError(INVALID_CREDENTIALS);
+    } else {
+      setError(INVALID_CREDENTIALS);
+    }
   };
 
   return (

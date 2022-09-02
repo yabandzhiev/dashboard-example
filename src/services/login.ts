@@ -9,8 +9,6 @@ export const loginService = async (email: string, password: string) => {
 
   if (userPosts.length < 1) {
     return false;
-  } else if (email.length < 3) {
-    return false;
   } else {
     return userPosts;
   }
